@@ -1,102 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player with Telegram Popup</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@plyr/plyr@3.6.8/dist/plyr.css" />
-    <style>
-        body {
-            background-color: black; /* Set background color to black */
-            color: white; /* Set text color to white for visibility */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full height of the viewport */
-            margin: 0; /* Remove default margin */
-        }
-        #player {
-            width: 80%; /* Set video player width */
-            max-width: 800px; /* Maximum width for larger screens */
-            height: auto; /* Automatic height adjustment */
-        }
-        /* Popup styles */
-        #telegram-popup {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #ccc;
-            padding: 20px;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player with Telegram Popup</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@plyr/plyr@3.6.8/dist/plyr.css" />
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #player {
+      width: 80%;
+      max-width: 800px;
+      height: auto;
+    }
+    #telegram-popup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+  </style>
 </head>
 <body>
+  <div id="overlay"></div>
+  <div id="telegram-popup">
+    <h2>Join Our Telegram Channel!</h2>
+    <p>Stay updated with the latest news.</p>
+    <a href="https://t.me/+_AupOjqXiLNlNmY1" target="_blank">Join CricHub</a>
+    <button onclick="closePopup()">Close</button>
+  </div>
+  <video id="player" controls crossorigin playsinline></video>
+  <script src="https://cdn.jsdelivr.net/npm/@plyr/plyr@3.6.8/dist/plyr.polyfilled.js"></script>
+  <script>
+    function getVideoUrlFromDomain() {
+      const url = new URL(window.location.href);
+      return url.searchParams.get('videoUrl');
+    }
 
-    <div id="overlay"></div>
-    <div id="telegram-popup">
-        <h2>Join Our Telegram Channel!</h2>
-        <p>Stay updated with the latest news.</p>
-        <a href="https://t.me/+_AupOjqXiLNlNmY1" target="_blank">Join CricHub</a>
-        <button onclick="closePopup()">Close</button>
-    </div>
+    const videoUrl = getVideoUrlFromDomain();
 
-    <video id="player" controls crossorigin playsinline></video>
+    if (videoUrl) {
+      const player = new Plyr('#player', {
+        autoplay: false,
+        controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen'],
+        sources: [
+          {
+            src: decodeURIComponent(videoUrl),
+            type: 'application/x-mpegURL',
+          },
+        ],
+      });
 
-    <script src="https://cdn.jsdelivr.net/npm/@plyr/plyr@3.6.8/dist/plyr.polyfilled.js"></script>
-    <script>
-        // Function to get video URL from the domain
-        function getVideoUrlFromDomain() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('videoUrl');
-        }
+      player.on('playing', () => {
+        document.getElementById('telegram-popup').style.display = 'flex';
+        document.getElementById('overlay').style.display = 'block';
+      });
+    } else {
+      console.error("No valid video URL provided.");
+      alert("No video URL found. Please provide a valid video URL.");
+    }
 
-        const videoUrl = getVideoUrlFromDomain(); // Get the video URL from the URL parameters
-
-        const player = new Plyr('#player', {
-            autoplay: false,
-            controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen'],
-        });
-
-        // Check if videoUrl is present and valid
-        if (videoUrl) {
-            player.source = {
-                type: 'video',
-                sources: [{
-                    src: decodeURIComponent(videoUrl), // Decode the URL
-                    type: 'application/x-mpegURL',
-                }],
-            };
-
-            // Show the Telegram popup when the video starts playing
-            player.on('playing', () => {
-                document.getElementById('telegram-popup').style.display = 'block';
-                document.getElementById('overlay').style.display = 'block';
-            });
-        } else {
-            console.error("No valid video URL provided.");
-            alert("No video URL found. Please provide a valid video URL.");
-        }
-
-        function closePopup() {
-            document.getElementById('telegram-popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-    </script>
-
+    function closePopup() {
+      document.getElementById('telegram-popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
