@@ -7,13 +7,13 @@
   <title>CricHub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet"> <!-- New font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orion+Esperanto+Dika&display=swap" rel="stylesheet"> <!-- Orion Esperanto Dika font -->
   <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <style>
     html {
-      font-family: 'Montserrat', sans-serif; /* Updated font */
+      font-family: 'Orion Esperanto Dika', sans-serif; /* Updated font */
       background: #000; /* Set background to black */
       margin: 0;
       padding: 0;
@@ -102,7 +102,7 @@
     </div>
   </div>
   
-  <video autoplay="" controls="" crossorigin="" poster="https://i.ibb.co/gJMnPqX/20240822-202737.png" playsinline style="--plyr-color-main:#15b4ff">
+  <video id="video" autoplay controls crossorigin playsinline style="--plyr-color-main:#15b4ff">
     <source id="m3u8-url" src="" type="application/x-mpegURL">
   </video>
   
@@ -114,8 +114,15 @@
   
   <script>
     var urlParams = new URLSearchParams(window.location.search),
-        maxvalue = urlParams.get("videoUrl"); // Changed "id" to "videoUrl"
-    document.getElementById("m3u8-url").setAttribute("src", maxvalue);
+        maxvalue = urlParams.get("videoUrl");
+    if (maxvalue) {
+      document.getElementById("m3u8-url").setAttribute("src", maxvalue);
+    } else {
+      document.getElementById("m3u8-url").setAttribute("src", "https://dai.google.com/linear/hls/event/EF8ln9M6T4SMJ-IKywjnBg/master.m3u8"); // Default URL
+    }
+
+    // Initialize Plyr
+    const player = new Plyr('#video');
 
     // Show Telegram banner on page load
     $(document).ready(function() {
