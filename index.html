@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
   <link href="https://fonts.googleapis.com/css2?family=Orion+Esperanto+Dika&display=swap" rel="stylesheet"> <!-- Orion Esperanto Dika font -->
+  <link href="https://fonts.googleapis.com/css2?family=Copperplate&display=swap" rel="stylesheet"> <!-- Copperplate font -->
   <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -54,22 +55,21 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #0088cc; /* Telegram color */
+      background: black; /* Black background */
       padding: 10px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       z-index: 10000;
       text-align: center;
-      width: 250px; /* Reduced width */
-      height: 90px; /* Reduced height */
-      background-image: url('https://i.imgur.com/Z1Zc7a7.png'); /* Brick wall background */
-      background-size: cover; /* Cover the background */
+      width: 250px; /* Adjusted width */
+      height: 90px; /* Adjusted height */
     }
     #telegram-banner h2 {
       color: white; /* White text for the title */
       margin: 0 0 10px; /* Margin below the title */
       text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00; /* Glowing effect */
       animation: glow 1.5s infinite alternate; /* Animation for glowing effect */
+      font-family: 'Copperplate', sans-serif; /* Changed font for the popup text */
     }
     @keyframes glow {
       0% {
@@ -87,6 +87,7 @@
       border-radius: 5px; /* Rounded corners */
       cursor: pointer;
       margin: 5px;
+      width: 100px; /* Fixed width for buttons */
     }
     #telegram-banner .cancel-button {
       background-color: red; /* Red for Cancel button */
