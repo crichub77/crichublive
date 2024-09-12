@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>CricHub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css"> <!-- Updated Plyr CDN -->
   <link href="https://fonts.googleapis.com/css2?family=Orion+Esperanto+Dika&display=swap" rel="stylesheet"> <!-- Orion Esperanto Dika font -->
   <link href="https://fonts.googleapis.com/css2?family=Copperplate&display=swap" rel="stylesheet"> <!-- Copperplate font -->
-  <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script> <!-- Plyr JS with polyfills -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <style>
@@ -67,9 +67,9 @@
     #telegram-banner h2 {
       color: white; /* White text for the title */
       margin: 0 0 10px; /* Margin below the title */
+      font-family: 'Copperplate', sans-serif; /* Changed font for the popup text */
       text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00; /* Glowing effect */
       animation: glow 1.5s infinite alternate; /* Animation for glowing effect */
-      font-family: 'Copperplate', sans-serif; /* Changed font for the popup text */
     }
     @keyframes glow {
       0% {
@@ -122,7 +122,19 @@
     }
 
     // Initialize Plyr
-    const player = new Plyr('#video');
+    const player = new Plyr('#video', {
+      controls: [
+        'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen', 'quality' // Added quality control
+      ],
+      quality: {
+        default: 720,
+        options: [360, 480, 720, 1080], // Example quality options
+        forced: true,
+        onChange: (newQuality) => {
+          console.log('Quality changed to:', newQuality);
+        },
+      },
+    });
 
     // Hide loading screen and show the video player once loaded
     player.on('ready', () => {
