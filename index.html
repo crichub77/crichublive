@@ -59,8 +59,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@plyr/plyr@3.6.8/dist/plyr.polyfilled.js"></script>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const videoUrl = urlParams.get('videoUrl'); // Use videoUrl parameter
+        // Function to get video URL from the domain
+        function getVideoUrlFromDomain() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('videoUrl');
+        }
+
+        const videoUrl = getVideoUrlFromDomain(); // Get the video URL from the URL parameters
 
         const player = new Plyr('#player', {
             autoplay: false,
@@ -76,14 +81,16 @@
                     type: 'application/x-mpegURL',
                 }],
             };
+
+            // Show the Telegram popup when the video starts playing
+            player.on('playing', () => {
+                document.getElementById('telegram-popup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            });
         } else {
             console.error("No valid video URL provided.");
+            alert("No video URL found. Please provide a valid video URL.");
         }
-
-        player.on('playing', () => {
-            document.getElementById('telegram-popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        });
 
         function closePopup() {
             document.getElementById('telegram-popup').style.display = 'none';
