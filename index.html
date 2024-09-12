@@ -109,7 +109,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     var maxvalue = urlParams.get("videoUrl");
 
-    // Set the video source to the provided URL
+    // Set up the JW Player
     var playerInstance = jwplayer("player").setup({
       file: maxvalue || 'https://example.com/path/to/default/video.m3u8', // Default URL if none provided
       width: "100%",
@@ -122,8 +122,6 @@
         { file: maxvalue, label: "720p", type: "application/x-mpegURL" },
         { file: maxvalue, label: "1080p", type: "application/x-mpegURL" },
       ],
-      width: "100%",
-      height: "auto",
       aspectratio: "16:9",
       controls: true,
       autostart: false,
