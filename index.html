@@ -42,6 +42,9 @@
       max-width: 800px; /* Set maximum width for the video player */
       height: auto; /* Maintain aspect ratio */
       margin-top: 80px; /* Maintain space below the popup */
+      border: 5px solid neon yellow; /* Solid border */
+      border-radius: 10px; /* Rounded corners for the border */
+      box-shadow: 0 0 20px 5px rgba(255, 255, 0, 0.7); /* Glowing effect */
     }
     .loading {
       position: fixed;
@@ -75,7 +78,7 @@
       }
     }
     #telegram-banner button {
-      background-color: orange; /* Orange for Join button */
+      background-color: green; /* Green for Join button */
       color: white;
       border: none;
       padding: 8px 12px;
@@ -87,6 +90,12 @@
     #telegram-banner .cancel-button {
       background-color: red; /* Red for Cancel button */
       border-radius: 5px; /* Rounded corners */
+    }
+    marquee {
+      background-color: darkgoldenrod; /* Dark yellow background */
+      color: black; /* Black text color */
+      width: 100%; /* Full width */
+      padding: 10px 0; /* Padding for better appearance */
     }
   </style>
   <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script> <!-- JW Player SDK -->
@@ -103,6 +112,10 @@
   </div>
 
   <div id="player"></div>
+
+  <marquee behavior="scroll" direction="left">
+    "JOIN CricHub TELEGRAM CHANNEL FOR ALL SPORTS LIVE LINKS"🔗❤️
+  </marquee>
 
   <script>
     // Get the video URL from the query parameters
