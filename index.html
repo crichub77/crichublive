@@ -19,16 +19,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; /* Center items vertically */
+      justify-content: flex-start; /* Align items to the top */
       height: 100vh;
       color: #DAA520; /* Dark yellow color */
     }
     #telegram-banner {
       display: none; /* Initially hidden */
       position: fixed;
-      top: 50%; /* Position at the center of the page */
+      top: 50%; /* Center vertically */
       left: 50%;
-      transform: translate(-50%, -50%); /* Center horizontally and vertically */
+      transform: translate(-50%, -50%); /* Center horizontally */
       background: black; /* Black background */
       padding: 10px;
       border-radius: 10px;
@@ -41,7 +41,7 @@
       width: 100%;
       max-width: 800px; /* Set maximum width for the video player */
       height: auto; /* Maintain aspect ratio */
-      margin-top: 20px; /* Add space below the popup */
+      margin-top: 80px; /* Maintain space below the popup */
     }
     .loading {
       position: fixed;
