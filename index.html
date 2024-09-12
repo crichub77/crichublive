@@ -1,119 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JW Player with HLS and Telegram Popup</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CricHub TV PLAY</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://i.ibb.co/t8PFZNB/20231219-100949.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <style>
-    #telegram-popup {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 20px;
-      width: 400px;
-      height: 250px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      display: none;
+    html {
+      font-family: Poppins;
+      background: #000; /* Set background to black */
+      margin: 0;
+      padding: 0;
     }
-
-    #telegram-popup h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
     }
-
-    #telegram-popup p {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    #telegram-popup a {
-      text-decoration: none;
-      color: #337ab7;
-    }
-
-    #telegram-popup button {
-      background-color: #337ab7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #telegram-popup button:hover {
-      background-color: #23527c;
-    }
-
-    #overlay {
+    .loading {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
+      background: #000;
+      z-index: 9999;
+    }
+    .loading-text {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+    }
+    .loading-text span {
+      display: inline-block;
+      margin: 0 5px;
+      color: #15b4ff;
+      font-family: 'Quattrocento Sans', sans-serif;
+    }
+    .plyr__video-wrapper::after {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      content: '';
+      height: 55px;
+      width: 80px;
+      background: url(https://i.ibb.co/nPqzNqL/20240226-131018.png) no-repeat;
+      background-size: 80px, auto, auto;
+    }
+    /* Telegram banner styles */
+    #telegram-banner {
+      display: none; /* Initially hidden */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      text-align: center;
+    }
+    #telegram-banner button {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div id="overlay"></div>
-  <div id="telegram-popup">
-    <h2><span>Join Our Telegram Channel!</span></h2>
-    <p><span>Stay updated with the latest news.</span></p>
-    <a href="https://t.me/+_AupOjqXiLNlNmY1" target="_blank"><span>Join CricHub</span></a>
-    <button onclick="closePopup()"><span>Close</span></button>
+  <div id="loading" class="loading">
+    <div class="loading-text">
+      <span class="loading-text-words">C</span> <span class="loading-text-words">r</span> <span class="loading-text-words">i</span> <span class="loading-text-words">c</span> <span class="loading-text-words">H</span> <span class="loading-text-words">u</span> <span class="loading-text-words">b</span> <span class="loading-text-words">-</span> <span class="loading-text-words">T</span> <span class="loading-text-words">V</span> <span class="loading-text-words">-</span> <span class="loading-text-words">P</span> <span class="loading-text-words">L</span> <span class="loading-text-words">A</span> <span class="loading-text-words">Y</span>
+    </div>
   </div>
-  <div id="player"></div>
-
-  <script src="https://cdn.jwplayer.com/players/8.24.3/jwplayer.js"></script>
+  
+  <video autoplay="" controls="" crossorigin="" poster="https://i.ibb.co/gJMnPqX/20240822-202737.png" playsinline style="--plyr-color-main:#15b4ff">
+    <source id="m3u8-url" src="" type="application/x-mpegURL">
+  </video>
+  
+  <div id="telegram-banner">
+    <h2>Join CricHub Telegram Channel</h2>
+    <button onclick="window.open('https://t.me/+_AupOjqXiLNlNmY1', '_blank')">Join</button>
+  </div>
+  
   <script>
-    const playerContainer = document.getElementById('player');
-    const player = new jwplayer(playerContainer);
+    var urlParams = new URLSearchParams(window.location.search),
+        maxvalue = urlParams.get("videoUrl"); // Changed "id" to "videoUrl"
+    document.getElementById("m3u8-url").setAttribute("src", maxvalue);
 
-    function getVideoUrlFromDomain() {
-      const url = new URL(window.location.href);
-      return url.searchParams.get('videoUrl');
-    }
-
-    const videoUrl = getVideoUrlFromDomain();
-
-    if (videoUrl) {
-      player.load([
-        {
-          file: videoUrl,
-          type: 'hls'
-        }
-      ]);
-    } else {
-      console.error("No valid video URL provided.");
-      alert("No video URL found. Please provide a valid video URL.");
-    }
-
-    player.setup({
-      autostart: false,
-      controls: true,
-      displaytitle: false,
-      width: '100%',
-      height: '100%'
+    // Show Telegram banner on page load
+    $(document).ready(function() {
+      $("#telegram-banner").fadeIn();
     });
-
-    player.on('play', function () {
-      document.getElementById('telegram-popup').style.display = 'flex';
-      document.getElementById('overlay').style.display = 'block';
-    });
-
-    function closePopup() {
-      document.getElementById('telegram-popup').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
-    }
   </script>
 </body>
 </html>
