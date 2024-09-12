@@ -7,12 +7,13 @@
   <title>CricHub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet"> <!-- New font -->
   <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <style>
     html {
-      font-family: Poppins;
+      font-family: 'Montserrat', sans-serif; /* Updated font */
       background: #000; /* Set background to black */
       margin: 0;
       padding: 0;
@@ -67,23 +68,30 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: #0088cc; /* Blue background */
       padding: 15px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       z-index: 10000;
       text-align: center;
       width: 300px; /* Set width to be more professional */
-      height: 100px; /* Set height to be smaller */
+      height: 120px; /* Adjusted height */
+    }
+    #telegram-banner h2 {
+      color: white; /* White text for the title */
+      margin: 0 0 10px; /* Margin below the title */
     }
     #telegram-banner button {
-      background-color: #0088cc;
+      background-color: #DAA520; /* Dark yellow for Join button */
       color: white;
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
       margin: 5px;
+    }
+    #telegram-banner .cancel-button {
+      background-color: red; /* Red for Cancel button */
     }
   </style>
 </head>
@@ -101,7 +109,7 @@
   <div id="telegram-banner">
     <h2>Join CricHub Telegram Channel</h2>
     <button onclick="window.open('https://t.me/+_AupOjqXiLNlNmY1', '_blank')">Join</button>
-    <button onclick="document.getElementById('telegram-banner').style.display='none'">Cancel</button>
+    <button class="cancel-button" onclick="document.getElementById('telegram-banner').style.display='none'">Cancel</button>
   </div>
   
   <script>
