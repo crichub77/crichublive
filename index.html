@@ -26,6 +26,8 @@
       width: 100%;
       max-width: 800px; /* Set maximum width for the video player */
       height: auto; /* Maintain aspect ratio */
+      z-index: 1; /* Ensure the player is below the popup */
+      position: relative; /* Position relative to allow z-index to work */
     }
     .loading {
       position: fixed;
@@ -54,7 +56,7 @@
       padding: 10px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 10000;
+      z-index: 10000; /* Ensure the popup is above the player */
       text-align: center;
       width: 250px; /* Adjusted width */
       height: 90px; /* Adjusted height */
@@ -89,6 +91,7 @@
       border-radius: 5px; /* Rounded corners */
     }
   </style>
+  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script> <!-- JW Player SDK -->
 </head>
 <body>
   <div id="loading" class="loading">
@@ -104,15 +107,39 @@
   </div>
 
   <script>
-    // Display the Telegram banner on page load
+    // Get the video URL from the query parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var maxvalue = urlParams.get("videoUrl");
+
+    // Set up the JW Player
+    var playerInstance = jwplayer("player").setup({
+      file: maxvalue || 'https://example.com/path/to/default/video.m3u8', // Default URL if none provided
+      width: "100%",
+      height: "auto",
+      primary: "html5",
+      // Adding quality options
+      sources: [
+        { file: maxvalue, label: "360p", type: "application/x-mpegURL" },
+        { file: maxvalue, label: "480p", type: "application/x-mpegURL" },
+        { file: maxvalue, label: "720p", type: "application/x-mpegURL" },
+        { file: maxvalue, label: "1080p", type: "application/x-mpegURL" },
+      ],
+      aspectratio: "16:9",
+      controls: true,
+      autostart: false,
+      stretching: "uniform",
+    });
+
+    // Hide loading screen and show the video player once loaded
+    playerInstance.on('ready', function() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('telegram-banner').style.display = 'block'; // Show the Telegram banner when the player is ready
+    });
+
+    // Show Telegram banner on page load
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('telegram-banner').style.display = 'block';
     });
-
-    // Hide loading screen after a short delay for demonstration purposes
-    setTimeout(function() {
-      document.getElementById('loading').style.display = 'none';
-    }, 1000); // Adjust the delay as needed
   </script>
 </body>
-</html> 
+</html>
