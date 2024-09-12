@@ -18,7 +18,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* Align items to the top */
       height: 100vh;
       color: #DAA520; /* Dark yellow color */
     }
@@ -26,8 +26,7 @@
       width: 100%;
       max-width: 800px; /* Set maximum width for the video player */
       height: auto; /* Maintain aspect ratio */
-      z-index: 1; /* Ensure the player is below the popup */
-      position: relative; /* Position relative to allow z-index to work */
+      margin-top: 20px; /* Add some space above the player */
     }
     .loading {
       position: fixed;
@@ -49,9 +48,9 @@
     #telegram-banner {
       display: none; /* Initially hidden */
       position: fixed;
-      top: 50%;
+      top: 10px; /* Position at the top of the page */
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%); /* Center horizontally */
       background: black; /* Black background */
       padding: 10px;
       border-radius: 10px;
@@ -59,7 +58,6 @@
       z-index: 10000; /* Ensure the popup is above the player */
       text-align: center;
       width: 250px; /* Adjusted width */
-      height: 90px; /* Adjusted height */
     }
     #telegram-banner h2 {
       color: white; /* White text for the title */
@@ -98,13 +96,13 @@
     <div class="loading-text">Loading CricHub...</div>
   </div>
 
-  <div id="player"></div>
-
   <div id="telegram-banner">
     <h2>Join CricHub Telegram Channel</h2>
     <button onclick="window.open('https://t.me/+_AupOjqXiLNlNmY1', '_blank')">Join</button>
     <button class="cancel-button" onclick="document.getElementById('telegram-banner').style.display='none'">Cancel</button>
   </div>
+
+  <div id="player"></div>
 
   <script>
     // Get the video URL from the query parameters
@@ -133,7 +131,6 @@
     // Hide loading screen and show the video player once loaded
     playerInstance.on('ready', function() {
       document.getElementById('loading').style.display = 'none';
-      document.getElementById('telegram-banner').style.display = 'block'; // Show the Telegram banner when the player is ready
     });
 
     // Show Telegram banner on page load
