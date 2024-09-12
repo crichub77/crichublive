@@ -40,9 +40,9 @@
     #player {
       width: 100%;
       max-width: 800px; /* Set maximum width for the video player */
+      max-height: 450px; /* Set maximum height for the player */
       height: auto; /* Maintain aspect ratio */
       margin-top: 80px; /* Add space below the popup */
-      flex-grow: 1; /* Allow player to grow and center vertically */
     }
     .loading {
       position: fixed;
@@ -125,7 +125,7 @@
       ],
       aspectratio: "16:9",
       controls: true,
-      autostart: true,
+      autostart: false,
       stretching: "uniform",
     });
 
