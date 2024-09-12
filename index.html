@@ -89,7 +89,6 @@
       border-radius: 5px; /* Rounded corners */
     }
   </style>
-  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script> <!-- Replace with your JW Player library ID -->
 </head>
 <body>
   <div id="loading" class="loading">
@@ -105,38 +104,15 @@
   </div>
 
   <script>
-    // Get the video URL from the query parameters
-    var urlParams = new URLSearchParams(window.location.search);
-    var maxvalue = urlParams.get("videoUrl");
-
-    // Set up the JW Player
-    var playerInstance = jwplayer("player").setup({
-      file: maxvalue || 'https://example.com/path/to/default/video.m3u8', // Default URL if none provided
-      width: "100%",
-      height: "auto",
-      primary: "html5",
-      // Adding quality options
-      sources: [
-        { file: maxvalue, label: "360p", type: "application/x-mpegURL" },
-        { file: maxvalue, label: "480p", type: "application/x-mpegURL" },
-        { file: maxvalue, label: "720p", type: "application/x-mpegURL" },
-        { file: maxvalue, label: "1080p", type: "application/x-mpegURL" },
-      ],
-      aspectratio: "16:9",
-      controls: true,
-      autostart: false,
-      stretching: "uniform",
+    // Display the Telegram banner on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('telegram-banner').style.display = 'block';
     });
 
-    // Hide loading screen and show the video player once loaded
-    playerInstance.on('ready', function() {
+    // Hide loading screen after a short delay for demonstration purposes
+    setTimeout(function() {
       document.getElementById('loading').style.display = 'none';
-    });
-
-    // Show Telegram banner on page load
-    $(document).ready(function() {
-      $("#telegram-banner").fadeIn();
-    });
+    }, 1000); // Adjust the delay as needed
   </script>
 </body>
-</html>
+</html> 
