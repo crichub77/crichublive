@@ -22,11 +22,25 @@
       height: 100vh;
       color: #DAA520; /* Dark yellow color */
     }
+    #telegram-banner {
+      display: none; /* Initially hidden */
+      position: fixed;
+      top: 10px; /* Position at the top of the page */
+      left: 50%;
+      transform: translateX(-50%); /* Center horizontally */
+      background: black; /* Black background */
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 10000; /* Ensure the popup is above the player */
+      text-align: center;
+      width: 250px; /* Adjusted width */
+    }
     #player {
       width: 100%;
       max-width: 800px; /* Set maximum width for the video player */
       height: auto; /* Maintain aspect ratio */
-      margin-top: 20px; /* Add some space above the player */
+      margin-top: 80px; /* Space below the popup */
     }
     .loading {
       position: fixed;
@@ -43,21 +57,6 @@
     .loading-text {
       text-align: center;
       font-size: 24px;
-    }
-    /* Telegram banner styles */
-    #telegram-banner {
-      display: none; /* Initially hidden */
-      position: fixed;
-      top: 10px; /* Position at the top of the page */
-      left: 50%;
-      transform: translateX(-50%); /* Center horizontally */
-      background: black; /* Black background */
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 10000; /* Ensure the popup is above the player */
-      text-align: center;
-      width: 250px; /* Adjusted width */
     }
     #telegram-banner h2 {
       color: white; /* White text for the title */
