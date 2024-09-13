@@ -154,5 +154,19 @@
       document.getElementById('telegram-banner').style.display = 'block';
     });
   </script>
+  <script>
+  // Function to detect if dev tools are open
+  function detectDevTools() {
+    const devToolsOpen = /./;
+    devToolsOpen.toString = function() {
+      // Close the page if dev tools are opened
+      window.close();
+    };
+    console.log('%c', devToolsOpen);
+  }
+
+  // Check for dev tools at intervals
+  setInterval(detectDevTools, 1000);
+  </script>
 </body>
 </html>
